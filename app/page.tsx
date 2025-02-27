@@ -59,7 +59,7 @@ export default function Home() {
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
       <h1 className="text-2xl font-bold text-center mb-4 font-mono font-bold">Kai</h1>
       <p className="w-full max-w-md text-md text-center mb-7 font-mono tracking-tighter">
-        Kai is an AI assistant that can help you with random questions.
+        Kai is an AI assistant that can help you with alot random questions bugging you.
       </p>
       <form onSubmit={onSubmit} className="w-full max-w-md space-y-4 font-mono">
         <div>
