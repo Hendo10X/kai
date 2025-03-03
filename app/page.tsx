@@ -73,7 +73,7 @@ export default function Home() {
       <div className="w-full max-w-2xl">
         <h1 className="text-3xl font-bold text-center mb-4 font-mono bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">Kai</h1>
         <p className="w-full text-md text-center mb-7 font-mono tracking-tighter text-gray-700">
-          Kai is a physics AI assistant that can help you with any questions.
+          Kai is a friendly AI assistant that can help you with any questions.
         </p>
         
         <form onSubmit={onSubmit} className="space-y-4 font-mono">
