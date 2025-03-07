@@ -8,7 +8,7 @@ import {
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { Copy, Check } from "lucide-react";
-import Image from "next/image";  // Added for image optimization
+
 
 const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 if (!apiKey) {
