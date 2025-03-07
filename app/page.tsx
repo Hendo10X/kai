@@ -2,12 +2,13 @@
 
 import {
   GoogleGenerativeAI,
-  HarmCategory,
-  HarmBlockThreshold,
+  // HarmCategory,  // Removed unused import
+  // HarmBlockThreshold,  // Removed unused import
 } from "@google/generative-ai";
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { Copy, Check } from "lucide-react";
+import Image from "next/image";  // Added for image optimization
 
 const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 if (!apiKey) {
@@ -64,7 +65,7 @@ export default function Home() {
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(data);
-    setCopied(true);
+    setCopied(true); 
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -83,7 +84,7 @@ export default function Home() {
               placeholder="Ask me about anything..."
               name="prompt"
               id="prompt"
-              className="block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200 text-gray-800"
+              className="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200 text-gray-800"
               autoComplete="off"
             />
           </div>
@@ -125,20 +126,19 @@ export default function Home() {
               <div className="prose prose-sm text-sm max-w-none font-mono text-gray-700">
                 <ReactMarkdown
                   components={{
-                    h1: ({ node, ...props }) => <h1 className="text-2xl font-bold mt-6 mb-4 text-gray-800" {...props} />,
-                    h2: ({ node, ...props }) => <h2 className="text-xl font-bold mt-5 mb-3 text-gray-800" {...props} />,
-                    h3: ({ node, ...props }) => <h3 className="text-lg font-bold mt-4 mb-2 text-gray-800" {...props} />,
-                    p: ({ node, ...props }) => <p className="mb-4 leading-relaxed" {...props} />,
-                    ul: ({ node, ...props }) => <ul className="list-disc pl-6 mb-4 space-y-1" {...props} />,
-                    ol: ({ node, ...props }) => <ol className="list-decimal pl-6 mb-4 space-y-1" {...props} />,
-                    li: ({ node, ...props }) => <li className="mb-1" {...props} />,
-                    code: ({ node, ...props }) => <code className="bg-gray-100 px-1 py-0.5 rounded-md" {...props} />,
-                    blockquote: ({ node, ...props }) => <blockquote className="border-l-4 border-indigo-300 pl-4 italic my-4 text-gray-600" {...props} />,
-                    a: ({ node, ...props }) => <a className="text-indigo-600 hover:underline transition duration-200" {...props} />,
-                    img: ({ node, ...props }) => <img className="max-w-full h-auto my-4 rounded-md shadow-sm" {...props} />,
-                    table: ({ node, ...props }) => <div className="overflow-x-auto my-4"><table className="min-w-full border-collapse border border-gray-300" {...props} /></div>,
-                    th: ({ node, ...props }) => <th className="border border-gray-300 px-4 py-2 bg-gray-100 text-left" {...props} />,
-                    td: ({ node, ...props }) => <td className="border border-gray-300 px-4 py-2" {...props} />,
+                    h1: ({ ...props }) => <h1 className="text-2xl font-bold mt-6 mb-4 text-gray-800" {...props} />,
+                    h2: ({ ...props }) => <h2 className="text-xl font-bold mt-5 mb-3 text-gray-800" {...props} />,
+                    h3: ({ ...props }) => <h3 className="text-lg font-bold mt-4 mb-2 text-gray-800" {...props} />,
+                    p: ({ ...props }) => <p className="mb-4 leading-relaxed" {...props} />,
+                    ul: ({ ...props }) => <ul className="list-disc pl-6 mb-4 space-y-1" {...props} />,
+                    ol: ({ ...props }) => <ol className="list-decimal pl-6 mb-4 space-y-1" {...props} />,
+                    li: ({ ...props }) => <li className="mb-1" {...props} />,
+                    code: ({ ...props }) => <code className="bg-gray-100 px-1 py-0.5 rounded-md" {...props} />,
+                    blockquote: ({ ...props }) => <blockquote className="border-l-4 border-indigo-300 pl-4 italic my-4 text-gray-600" {...props} />,
+                    a: ({ ...props }) => <a className="text-indigo-600 hover:underline transition duration-200" {...props} />,
+                    table: ({ ...props }) => <div className="overflow-x-auto my-4"><table className="min-w-full border-collapse border border-gray-300" {...props} /></div>,
+                    th: ({ ...props }) => <th className="border border-gray-300 px-4 py-2 bg-gray-100 text-left" {...props} />,
+                    td: ({ ...props }) => <td className="border border-gray-300 px-4 py-2" {...props} />,
                   }}
                 >
                   {data}
