@@ -3,6 +3,13 @@ import wave
 
 import pytest
 
+pytest.importorskip("requests")
+pytest.importorskip("numpy")
+try:
+    import sounddevice  # noqa: F401 — raises OSError when PortAudio is missing
+except Exception:
+    pytest.skip("sounddevice unavailable", allow_module_level=True)
+
 from kai.audio import yarn
 from kai.audio.yarn import YarnSpeaker
 from kai.personas import PERSONAS
