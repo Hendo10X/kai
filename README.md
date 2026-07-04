@@ -8,7 +8,18 @@ Wake Word → Speech Recognition → Intent Engine → Action Registry → Plugi
 
 Everything runs locally: openWakeWord for wake-word detection (no account or API key needed), faster-whisper for speech recognition, your OS's own voices for speech output.
 
-## Install
+## Download
+
+Standalone builds — no Python needed:
+
+- [Windows (x64)](https://github.com/Hendo10X/kai/releases/latest/download/kai-windows-x64.exe)
+- [macOS (Apple Silicon)](https://github.com/Hendo10X/kai/releases/latest/download/kai-macos-arm64)
+- [macOS (Intel)](https://github.com/Hendo10X/kai/releases/latest/download/kai-macos-x64)
+- [Linux (x64)](https://github.com/Hendo10X/kai/releases/latest/download/kai-linux-x64)
+
+Run `kai run` from a terminal (macOS: `chmod +x kai-macos-*` first, and on first launch right-click → Open to get past Gatekeeper since builds are unsigned). The Whisper speech model downloads automatically on first use.
+
+## Install from source
 
 ```bash
 # Core (text mode — works everywhere, no audio needed)

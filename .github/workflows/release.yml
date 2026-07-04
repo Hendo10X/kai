@@ -1,0 +1,54 @@
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            built: dist/kai.exe
+            asset: kai-windows-x64.exe
+          - os: macos-latest
+            built: dist/kai
+            asset: kai-macos-arm64
+          - os: macos-13
+            built: dist/kai
+            asset: kai-macos-x64
+          - os: ubuntu-latest
+            built: dist/kai
+            asset: kai-linux-x64
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install ".[desktop]" faster-whisper sounddevice numpy keyboard pyinstaller
+
+      - name: Build binary
+        run: python packaging/build.py
+
+      - name: Smoke test
+        shell: bash
+        run: ${{ matrix.built }} --version
+
+      - name: Rename asset
+        shell: bash
+        run: mv ${{ matrix.built }} ${{ matrix.asset }}
+
+      - name: Upload to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ matrix.asset }}
+          generate_release_notes: true
