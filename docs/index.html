@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kai — a voice assistant that lives on your computer</title>
-<meta name="description" content="Kai is a local-first, voice-powered desktop assistant. Open apps, control music, dictate, search — everything processed on your machine. Nothing leaves it.">
+<title>Kai, a voice assistant that lives on your computer</title>
+<meta name="description" content="Kai is a local-first, voice-powered desktop assistant. Open apps, control music, dictate, search. Everything is processed on your machine and nothing leaves it.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' fill='%237132f5'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -127,7 +127,9 @@
   .download { margin-top: 36px; }
 
   .btn {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     font-family: var(--ui);
     font-size: 16px;
     font-weight: 600;
@@ -139,6 +141,11 @@
     transition: background 0.2s ease;
   }
   .btn:hover { background: var(--purple-dark); }
+  .btn svg {
+    display: block;
+    transition: transform 0.2s ease;
+  }
+  .btn:hover svg { transform: translateX(3px); }
 
   .others {
     margin-top: 14px;
@@ -260,10 +267,10 @@
 
     <h1 class="rise d2">A voice assistant that lives on <em>your</em> computer</h1>
 
-    <p class="sub rise d3">Say <span class="say">“hey kai”</span> to open apps, control music, dictate, search, and run your own commands. Every word is processed on your machine — nothing leaves it.</p>
+    <p class="sub rise d3">Say <span class="say">“hey kai”</span> to open apps, control music, dictate, search, and run your own commands. Every word is processed on your machine. Nothing leaves it.</p>
 
     <div class="download rise d4">
-      <a class="btn" id="dl" href="https://github.com/Hendo10X/kai/releases/latest"><span id="dl-label">Download Kai</span></a>
+      <a class="btn" id="dl" href="https://github.com/Hendo10X/kai/releases/latest"><span id="dl-label">Download Kai</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.5 8h11m0 0L9 3.5M13.5 8L9 12.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       <p class="others"><span id="others"></span> · <a href="https://github.com/Hendo10X/kai/releases/latest">all downloads</a></p>
       <p class="note" id="dl-note"></p>
     </div>
@@ -291,7 +298,7 @@
     <div class="feature">
       <div class="icon" aria-hidden="true">⌘</div>
       <h3>Yours to extend</h3>
-      <p>Add commands in plain YAML — shell scripts, hotkeys, apps — or drop in a Python plugin.</p>
+      <p>Add commands in plain YAML: shell scripts, hotkeys, apps. Or drop in a Python plugin.</p>
     </div>
   </section>
 
@@ -307,9 +314,9 @@
   var base = "https://github.com/Hendo10X/kai/releases/latest/download/";
   var targets = {
     windows: { label: "Download for Windows", file: "kai-windows-x64.exe",
-      note: "If SmartScreen appears, click “More info → Run anyway” — builds are unsigned." },
+      note: "If SmartScreen appears, click “More info”, then “Run anyway”. Builds are unsigned." },
     mac:     { label: "Download for macOS", file: "kai-macos-arm64.tar.gz",
-      note: "First launch: right-click kai → Open (unsigned build). Intel Mac? Use the link below." },
+      note: "First launch: right-click kai and choose Open (unsigned build). Intel Mac? Use the link below." },
     linux:   { label: "Download for Linux", file: "kai-linux-x64.tar.gz",
       note: "Extract, then run ./kai" }
   };
