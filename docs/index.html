@@ -5,236 +5,242 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kai — a voice assistant that lives on your computer</title>
 <meta name="description" content="Kai is a local-first, voice-powered desktop assistant. Open apps, control music, dictate, search — everything processed on your machine. Nothing leaves it.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◌</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' fill='%237132f5'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,400;0,9..144,560;1,9..144,340;1,9..144,560&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --paper: #faf6ef;
-    --ink: #1c1915;
-    --ink-soft: #6f675c;
-    --accent: #e2572b;
-    --tint: #f1eadf;
-    --serif: "Fraunces", Georgia, serif;
+    --purple: #7132f5;
+    --purple-dark: #5741d8;
+    --purple-subtle: rgba(133, 91, 251, 0.16);
+    --ink: #101114;
+    --gray: #686b82;
+    --gray-soft: #9497a9;
+    --border: #dedee5;
+    --surface: #ffffff;
+    --gray-bg: rgba(148, 151, 169, 0.08);
+    --green-bg: rgba(20, 158, 97, 0.16);
+    --green-text: #026b3f;
+    --ui: "IBM Plex Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     --mono: "IBM Plex Mono", ui-monospace, monospace;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
   body {
-    background: var(--paper);
+    background: var(--surface);
     color: var(--ink);
-    font-family: var(--serif);
-    font-weight: 340;
-    line-height: 1.6;
+    font-family: var(--ui);
+    font-size: 16px;
+    line-height: 1.38;
     -webkit-font-smoothing: antialiased;
   }
-  a { color: inherit; }
-  ::selection { background: var(--accent); color: var(--paper); }
+  a { color: var(--purple); }
+  ::selection { background: var(--purple); color: #fff; }
 
-  .wrap {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
 
   /* ---------- header ---------- */
   header {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
-    padding-top: 36px;
-    font-family: var(--mono);
-    font-size: 13px;
-    letter-spacing: 0.04em;
+    align-items: center;
+    padding: 20px 0;
   }
-  header .ver { color: var(--ink-soft); }
-  header a {
-    text-decoration: none;
-    color: var(--ink);
-  }
-  header a:hover { color: var(--accent); }
-
-  /* ---------- hero ---------- */
-  .hero { padding: 17vh 0 0; }
-
-  h1 {
-    font-size: clamp(64px, 13vw, 118px);
-    font-weight: 560;
-    line-height: 0.95;
-    letter-spacing: -0.02em;
+  .brand {
     display: flex;
-    align-items: baseline;
-    gap: 0.22em;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -0.3px;
   }
-
-  /* listening waveform */
-  .wave {
+  .brand .dot {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--purple);
     display: inline-flex;
-    align-items: flex-end;
-    gap: 5px;
-    height: 0.52em;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
   }
-  .wave span {
-    width: 6px;
-    background: var(--accent);
-    border-radius: 99px;
-    height: 100%;
-    transform-origin: bottom;
+  .brand .dot i {
+    width: 2px; border-radius: 2px; background: #fff; display: block;
     animation: listen 1.5s ease-in-out infinite;
+    transform-origin: center;
   }
-  .wave span:nth-child(1) { animation-delay: 0s;    }
-  .wave span:nth-child(2) { animation-delay: 0.22s; }
-  .wave span:nth-child(3) { animation-delay: 0.44s; }
-  .wave span:nth-child(4) { animation-delay: 0.13s; }
+  .brand .dot i:nth-child(1) { height: 8px;  animation-delay: 0s; }
+  .brand .dot i:nth-child(2) { height: 12px; animation-delay: 0.2s; }
+  .brand .dot i:nth-child(3) { height: 7px;  animation-delay: 0.4s; }
   @keyframes listen {
-    0%, 100% { transform: scaleY(0.25); }
+    0%, 100% { transform: scaleY(0.5); }
     50%      { transform: scaleY(1); }
   }
   @media (prefers-reduced-motion: reduce) {
-    .wave span { animation: none; transform: scaleY(0.6); }
+    .brand .dot i { animation: none; }
     .rise { animation: none !important; opacity: 1 !important; }
   }
+  header nav a {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+  }
+  header nav a:hover { background: var(--gray-bg); }
 
-  .tagline {
-    margin-top: 40px;
-    font-size: clamp(24px, 4.4vw, 34px);
-    line-height: 1.32;
-    font-weight: 340;
-    max-width: 21ch;
+  /* ---------- hero ---------- */
+  .hero { padding: 96px 0 0; text-align: center; }
+
+  .badge {
+    display: inline-block;
+    background: var(--green-bg);
+    color: var(--green-text);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 6px;
   }
-  .tagline em {
-    font-style: italic;
-    color: var(--accent);
+
+  h1 {
+    margin-top: 20px;
+    font-size: clamp(38px, 6.4vw, 56px);
+    font-weight: 700;
+    line-height: 1.17;
+    letter-spacing: -1px;
+    max-width: 17ch;
+    margin-left: auto;
+    margin-right: auto;
   }
+  h1 em { font-style: normal; color: var(--purple); }
 
   .sub {
-    margin-top: 28px;
-    font-size: 17px;
-    color: var(--ink-soft);
-    max-width: 46ch;
+    margin: 20px auto 0;
+    color: var(--gray);
+    font-size: 18px;
+    line-height: 1.5;
+    max-width: 52ch;
   }
-  .sub .say { font-style: italic; color: var(--ink); }
+  .sub .say { font-weight: 600; color: var(--ink); }
 
   /* ---------- download ---------- */
-  .download { margin-top: 56px; }
+  .download { margin-top: 36px; }
 
   .btn {
     display: inline-block;
-    font-family: var(--mono);
-    font-size: 15px;
-    font-weight: 500;
-    letter-spacing: 0.02em;
+    font-family: var(--ui);
+    font-size: 16px;
+    font-weight: 600;
     text-decoration: none;
-    color: var(--paper);
-    background: var(--ink);
-    padding: 18px 34px;
-    border-radius: 999px;
-    position: relative;
-    overflow: hidden;
-    transition: color 0.35s ease;
+    color: #fff;
+    background: var(--purple);
+    padding: 13px 24px;
+    border-radius: 12px;
+    transition: background 0.2s ease;
   }
-  .btn::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: var(--accent);
-    transform: translateY(101%);
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .btn:hover::before { transform: translateY(0); }
-  .btn span { position: relative; z-index: 1; }
+  .btn:hover { background: var(--purple-dark); }
 
-  .meta {
-    margin-top: 18px;
-    font-family: var(--mono);
+  .others {
+    margin-top: 14px;
+    font-size: 14px;
+    color: var(--gray-soft);
+  }
+  .others a {
+    color: var(--purple);
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .others a:hover { text-decoration: underline; }
+
+  .note {
+    margin: 10px auto 0;
     font-size: 13px;
-    color: var(--ink-soft);
-    line-height: 2;
+    color: var(--gray-soft);
+    max-width: 56ch;
   }
-  .meta a {
-    color: var(--ink-soft);
-    text-underline-offset: 3px;
-    text-decoration-color: rgba(28, 25, 21, 0.25);
-  }
-  .meta a:hover { color: var(--accent); text-decoration-color: var(--accent); }
-  .note { max-width: 52ch; }
 
   /* ---------- terminal ---------- */
   .term {
-    margin-top: 96px;
-    background: var(--tint);
+    margin-top: 72px;
+    background: var(--gray-bg);
     border-radius: 16px;
-    padding: 30px 32px;
+    padding: 26px 28px;
     font-family: var(--mono);
     font-size: 14px;
-    line-height: 2.05;
+    line-height: 2;
+    text-align: left;
     overflow-x: auto;
     white-space: pre;
   }
-  .term .p  { color: var(--ink-soft); }
-  .term .k  { color: var(--accent); }
-  .term .r  { color: var(--ink); }
+  .term .p { color: var(--gray-soft); }
+  .term .k { color: var(--purple); font-weight: 500; }
+  .term .r { color: var(--ink); }
 
   /* ---------- features ---------- */
   .features {
-    margin-top: 96px;
+    margin-top: 88px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
+    gap: 32px;
+    text-align: left;
   }
-  @media (max-width: 620px) { .features { grid-template-columns: 1fr; } }
-  .feature .num {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--accent);
-    letter-spacing: 0.08em;
+  @media (max-width: 640px) { .features { grid-template-columns: 1fr; } }
+  .feature .icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: var(--purple-subtle);
+    color: var(--purple);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
   }
   .feature h3 {
-    margin-top: 10px;
-    font-size: 21px;
-    font-weight: 560;
-    letter-spacing: -0.01em;
+    margin-top: 14px;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.3px;
   }
   .feature p {
     margin-top: 8px;
-    font-size: 15.5px;
-    color: var(--ink-soft);
+    font-size: 16px;
+    color: var(--gray);
   }
 
   /* ---------- footer ---------- */
   footer {
-    margin-top: 110px;
-    padding: 28px 0 44px;
+    margin-top: 96px;
+    border-top: 1px solid var(--border);
+    padding: 24px 0 40px;
     display: flex;
     justify-content: space-between;
     gap: 16px;
     flex-wrap: wrap;
-    font-family: var(--mono);
-    font-size: 12.5px;
-    color: var(--ink-soft);
+    font-size: 14px;
+    color: var(--gray-soft);
   }
   footer a {
-    color: var(--ink-soft);
-    text-underline-offset: 3px;
-    text-decoration-color: rgba(28, 25, 21, 0.25);
+    color: var(--gray-soft);
+    text-decoration: none;
+    font-weight: 500;
   }
-  footer a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+  footer a:hover { color: var(--purple); }
 
   /* ---------- entrance ---------- */
   .rise {
     opacity: 0;
-    animation: rise 0.9s cubic-bezier(0.2, 0.6, 0.2, 1) forwards;
+    animation: rise 0.7s cubic-bezier(0.2, 0.6, 0.2, 1) forwards;
   }
   @keyframes rise {
-    from { opacity: 0; transform: translateY(18px); }
+    from { opacity: 0; transform: translateY(14px); }
     to   { opacity: 1; transform: none; }
   }
   .d1 { animation-delay: 0.05s; }
-  .d2 { animation-delay: 0.18s; }
-  .d3 { animation-delay: 0.31s; }
-  .d4 { animation-delay: 0.44s; }
-  .d5 { animation-delay: 0.6s; }
+  .d2 { animation-delay: 0.15s; }
+  .d3 { animation-delay: 0.25s; }
+  .d4 { animation-delay: 0.35s; }
+  .d5 { animation-delay: 0.5s; }
 </style>
 </head>
 <body>
@@ -242,24 +248,24 @@
 <div class="wrap">
 
   <header class="rise d1">
-    <span>kai <span class="ver" id="ver">v0.1.2</span></span>
-    <a href="https://github.com/Hendo10X/kai">github ↗</a>
+    <span class="brand"><span class="dot" aria-hidden="true"><i></i><i></i><i></i></span>Kai</span>
+    <nav>
+      <a href="https://github.com/Hendo10X/kai#readme">Docs</a>
+      <a href="https://github.com/Hendo10X/kai">GitHub</a>
+    </nav>
   </header>
 
   <section class="hero">
-    <h1 class="rise d1">Kai<span class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span></span></h1>
+    <span class="badge rise d1">100% local · no cloud · open source</span>
 
-    <p class="tagline rise d2">A voice assistant that lives on <em>your</em> computer, not in the cloud.</p>
+    <h1 class="rise d2">A voice assistant that lives on <em>your</em> computer</h1>
 
-    <p class="sub rise d3">Say <span class="say">“hey kai”</span> — open apps, control music, dictate, search, run your own commands. Every word is processed on your machine. Nothing leaves it.</p>
+    <p class="sub rise d3">Say <span class="say">“hey kai”</span> to open apps, control music, dictate, search, and run your own commands. Every word is processed on your machine — nothing leaves it.</p>
 
     <div class="download rise d4">
       <a class="btn" id="dl" href="https://github.com/Hendo10X/kai/releases/latest"><span id="dl-label">Download Kai</span></a>
-      <p class="meta">
-        <span id="dl-note" class="note"></span><br>
-        <span id="others"></span><br>
-        free &amp; open source · <a href="https://github.com/Hendo10X/kai/releases/latest">all downloads</a>
-      </p>
+      <p class="others"><span id="others"></span> · <a href="https://github.com/Hendo10X/kai/releases/latest">all downloads</a></p>
+      <p class="note" id="dl-note"></p>
     </div>
   </section>
 
@@ -273,17 +279,17 @@
 
   <section class="features">
     <div class="feature">
-      <div class="num">01</div>
+      <div class="icon" aria-hidden="true">●</div>
       <h3>Private by default</h3>
       <p>Wake word and speech recognition run locally with Whisper. No accounts, no servers, no telemetry.</p>
     </div>
     <div class="feature">
-      <div class="num">02</div>
+      <div class="icon" aria-hidden="true">▸</div>
       <h3>Fast &amp; lightweight</h3>
       <p>One small binary. Speaks back instantly, sits quietly in your tray until you call its name.</p>
     </div>
     <div class="feature">
-      <div class="num">03</div>
+      <div class="icon" aria-hidden="true">⌘</div>
       <h3>Yours to extend</h3>
       <p>Add commands in plain YAML — shell scripts, hotkeys, apps — or drop in a Python plugin.</p>
     </div>
@@ -291,7 +297,7 @@
 
   <footer>
     <span>MIT licensed</span>
-    <span><a href="https://github.com/Hendo10X/kai">source</a> · <a href="https://github.com/Hendo10X/kai/issues">issues</a> · <a href="https://github.com/Hendo10X/kai#readme">docs</a></span>
+    <span><a href="https://github.com/Hendo10X/kai">Source</a> · <a href="https://github.com/Hendo10X/kai/issues">Issues</a> · <a href="https://github.com/Hendo10X/kai#readme">Docs</a></span>
   </footer>
 
 </div>
@@ -309,8 +315,8 @@
   };
   var all = [
     ["Windows", "kai-windows-x64.exe"],
-    ["macOS · Apple Silicon", "kai-macos-arm64.tar.gz"],
-    ["macOS · Intel", "kai-macos-x64.tar.gz"],
+    ["macOS (Apple Silicon)", "kai-macos-arm64.tar.gz"],
+    ["macOS (Intel)", "kai-macos-x64.tar.gz"],
     ["Linux", "kai-linux-x64.tar.gz"]
   ];
 
