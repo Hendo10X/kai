@@ -4,4 +4,4 @@ Pipeline: Wake Word -> Speech Recognition -> Intent Engine -> Action Registry
           -> Plugin System -> Execution Layer
 """
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
