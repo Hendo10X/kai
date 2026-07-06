@@ -13,11 +13,22 @@ Everything runs locally: openWakeWord for wake-word detection (no account or API
 Standalone builds — no Python needed:
 
 - [Windows (x64)](https://github.com/Hendo10X/kai/releases/latest/download/kai-windows-x64.exe)
-- [macOS (Apple Silicon)](https://github.com/Hendo10X/kai/releases/latest/download/kai-macos-arm64)
-- [macOS (Intel)](https://github.com/Hendo10X/kai/releases/latest/download/kai-macos-x64)
-- [Linux (x64)](https://github.com/Hendo10X/kai/releases/latest/download/kai-linux-x64)
+- [macOS (Apple Silicon)](https://github.com/Hendo10X/kai/releases/latest/download/kai-macos-arm64.tar.gz)
+- [macOS (Intel)](https://github.com/Hendo10X/kai/releases/latest/download/kai-macos-x64.tar.gz)
+- [Linux (x64)](https://github.com/Hendo10X/kai/releases/latest/download/kai-linux-x64.tar.gz)
 
-Run `kai run` from a terminal (macOS: `chmod +x kai-macos-*` first, and on first launch right-click → Open to get past Gatekeeper since builds are unsigned). The Whisper speech model downloads automatically on first use.
+**Windows:** double-click `kai-windows-x64.exe` — the assistant starts right away. Because the build is unsigned, SmartScreen may show "Windows protected your PC": click **More info → Run anyway**.
+
+**macOS / Linux:** extract and run:
+
+```bash
+tar -xzf kai-macos-arm64.tar.gz
+./kai run
+```
+
+On macOS the first launch is blocked by Gatekeeper (unsigned build): right-click `kai` → **Open** → Open, or run `xattr -d com.apple.quarantine kai`.
+
+The Whisper speech model downloads automatically on first use (~75 MB).
 
 ## Install from source
 

@@ -175,13 +175,40 @@ def main(argv: list[str] | None = None) -> int:
     )
 
     if not getattr(args, "func", None):
-        parser.print_help()
-        return 1
+        if getattr(sys, "frozen", False):
+            # Standalone build launched without a command (usually a
+            # double-click) — start the assistant instead of dumping help.
+            args = parser.parse_args([*(argv or sys.argv[1:]), "run"])
+        else:
+            parser.print_help()
+            return 1
     try:
         return args.func(args)
     except RuntimeError as exc:
         print(f"error: {exc}", file=sys.stderr)
+        _pause_if_double_clicked()
         return 1
+    except Exception:
+        import traceback
+
+        traceback.print_exc()
+        _pause_if_double_clicked()
+        return 1
+
+
+def _pause_if_double_clicked() -> None:
+    """Keep the console window open so errors are readable when the packaged
+    exe was double-clicked (the window closes with the process otherwise)."""
+    if not getattr(sys, "frozen", False) or sys.platform != "win32":
+        return
+    try:
+        import ctypes
+
+        owners = ctypes.windll.kernel32.GetConsoleProcessList((ctypes.c_uint * 2)(), 2)
+        if owners <= 1:  # we're the only process on this console -> double-click
+            input("\nPress Enter to close...")
+    except Exception:
+        pass
 
 
 if __name__ == "__main__":

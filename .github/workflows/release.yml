@@ -18,13 +18,13 @@ jobs:
             asset: kai-windows-x64.exe
           - os: macos-latest
             built: dist/kai
-            asset: kai-macos-arm64
+            asset: kai-macos-arm64.tar.gz
           - os: macos-15-intel
             built: dist/kai
-            asset: kai-macos-x64
+            asset: kai-macos-x64.tar.gz
           - os: ubuntu-latest
             built: dist/kai
-            asset: kai-linux-x64
+            asset: kai-linux-x64.tar.gz
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -43,9 +43,16 @@ jobs:
         shell: bash
         run: ${{ matrix.built }} --version
 
-      - name: Rename asset
+      - name: Package asset
         shell: bash
-        run: mv ${{ matrix.built }} ${{ matrix.asset }}
+        # tar.gz on macOS/Linux so the executable bit survives the download
+        run: |
+          if [[ "${{ runner.os }}" == "Windows" ]]; then
+            mv ${{ matrix.built }} ${{ matrix.asset }}
+          else
+            chmod +x ${{ matrix.built }}
+            tar -czf ${{ matrix.asset }} -C dist kai
+          fi
 
       - name: Upload to release
         uses: softprops/action-gh-release@v2
